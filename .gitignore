@@ -1,13 +1,66 @@
-# History files
-.Rhistory
-.Rapp.history
+#############
+## If you decide to use these settings that eagerly excludes files, rename it to simply `.gitignore` (without the quotes) and place it in the root of the repository.
+#############
+# In root/base directory
+README.html
 
-# Example code in package build process
-*-Ex.R
+# In DocumentationGlobal directory
+Gotchas.html
+PatternReportDesign.html
+PatternReportRun.html
+ReportChecklist.html
+ResourcesInstallation.html
+ResourcesOfficial.html
+ResourcesOpinions.html
+ProjectGuidelines.html
 
-# RStudio files
-.Rproj.user/
+# Anywhere
+*.zip
+*.Zip
+*.ZIP
+*.Rhistory
+*.Rproj.user
 
-# produced vignettes
-vignettes/*.html
-vignettes/*.pdf
+# I'm afraid this might contain PHI if someone knew how to decode it.
+us.stackdump
+
+# Data formats that potentially contain PHI
+*.rdata
+*.Rdata
+*.RData
+*.RDATA
+*.RDS
+*.rds
+*.csv
+*.mdb
+*.accdb
+*.sav
+*.sas7bdat
+*.xls
+*.xlsx
+
+# Dataset Exceptions
+!data_phi_free/raw/house.csv
+
+!Recruitment/RecruitmentMetadata.xlsx
+
+# RData exceptions
+!OsdhReports/C1ActivityAapc/resultsBugs.RData
+!OsdhReports/C1ActivityAapc/resultsJags.RData
+
+# Protected Information; see cubuspl42's answer in http://stackoverflow.com/questions/2415873/exceptions-in-gitignore
+UnsharedMaterial/*
+DataUnshared/*
+
+# For LaTeX
+*.tex
+*.synctex.gz
+*.log
+
+# Exclude caches in case they contain PHI
+cache/
+*/cache/
+*/*/cache/
+
+# The devtools zip is downloaded when the package is updating itself.  If it's not deleted, there's no reason to commit it to the repository.
+devtools.zip
