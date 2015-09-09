@@ -1,10 +1,10 @@
-# rm(list=ls(all=TRUE)) #Clear the memory of variables from previous run. This is not called by knitr, because it's above the first chunk.
+rm(list=ls(all=TRUE)) #Clear the memory of variables from previous run. This is not called by knitr, because it's above the first chunk.
 
 # ---- load_sources ----
 #Load any source files that contain/define functions, but that don't load any other types of variables
 #   into memory.  Avoid side effects and don't pollute the global environment.
 # source("./SomethingSomething.R")
-browser()
+# browser()
 
 # ---- load_packages ----
 # library(xtable)
@@ -18,7 +18,9 @@ library(ggplot2) #For graphing
 # ---- declare_globals ----
 options(show.signif.stars=F) #Turn off the annotations on p-values
 
-pathInput <- "/home/wibeasley/GitHub/HousePrediction/data_phi_free/raw/house.csv"
+pathInput <- "./data_phi_free/raw/house.csv"
+# pathInput <- "/home/wibeasley/GitHub/HousePrediction/data_phi_free/raw/house.csv"
+pathInput <- "D:/Users/Will/Documents/GitHub/HousePrediction/data_phi_free/raw/house.csv"
 
 HistogramDiscrete <- function(
   dsObserved,
@@ -98,8 +100,12 @@ ds <- read.csv(pathInput, stringsAsFactors=T) # 'ds' stands for 'datasets'
 ds$PriceMissing <- is.na(ds$PriceSold)
 
 # ---- marginals ----
-HistogramContinuous(dsObserved=ds, variableName="HouseSqFt", binWidth=400, roundedDigits=0)
-HistogramContinuous(dsObserved=ds, variableName="LandSqFt", binWidth=5000, roundedDigits=0)
+HistogramContinuous(dsObserved=ds, variableName="HouseSqFt", binWidth=400, roundedDigits=0) +
+  geom_vline(x=ds$HouseSqFt[ds$PriceMissing], linetype=3)
+
+HistogramContinuous(dsObserved=ds, variableName="LandSqFt", binWidth=5000, roundedDigits=0) +
+  geom_vline(x=ds$LandSqFt[ds$PriceMissing], linetype=3)
+
 HistogramContinuous(dsObserved=ds, variableName="PriceSold", binWidth=50000, roundedDigits=0)
 
 # HistogramDiscrete(dsObserved=ds, variableName="ForwardGearCountF")
@@ -129,4 +135,13 @@ m1 <- lm(PriceSold ~ 1 + HouseSqFt*LandSqFt, data=ds)
 summary(m1)
 predict.lm(m1, ds[ds$PriceMissing, ])
 
+library(scatterplot3d)
+s3d <- scatterplot3d(
+  ds$HouseSqFt, ds$LandSqFt, ds$PriceSold,
+  pch=16, highlight.3d=TRUE, type="h",
+  angle=-31,
+  # angle=80,
+  main="3D Scatterplot"
+)
+s3d$plane3d(m0)
 # **Note 1**: The current report covers `r nrow(ds)` houses.
