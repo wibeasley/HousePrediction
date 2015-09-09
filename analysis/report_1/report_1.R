@@ -104,14 +104,18 @@ HistogramContinuous(dsObserved=ds, variableName="PriceSold", binWidth=50000, rou
 # HistogramDiscrete(dsObserved=ds, variableName="ForwardGearCountF")
 
 # @knitr scatterplots ==============================
-g1 <- ggplot(ds, aes(x=HouseSqFt, y=PriceSold, color=ObservedPrice)) +
+g1 <- ggplot(ds, aes(x=HouseSqFt, y=PriceSold, color=NULL, shape=NULL)) +
   geom_smooth(method="loess", span=2, na.rm=T) +
-  geom_point(shape=1, na.rm=T) +
+  geom_point(na.rm=T) +
+  scale_color_brewer(palette = "Dark2") +
   theme_bw()
-g1
+g1 + geom_vline(x=ds$HouseSqFt[ds$PriceMissing], linetype=3)
 
-g1 %+% aes(x=LandSqFt)
-g1 %+% aes(x=HouseSqFt, y=LandSqFt)
+g1 %+% aes(x=LandSqFt) +
+  geom_vline(x=ds$LandSqFt[ds$PriceMissing], linetype=3)
+
+g1 %+% aes(x=HouseSqFt, y=LandSqFt, color=PriceMissing, shape=PriceMissing) +
+  theme(legend.position=c(.7,1), legend.justification=c(1,1))
 
 # @knitr models ==============================
 

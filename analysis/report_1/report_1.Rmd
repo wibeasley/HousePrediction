@@ -15,7 +15,7 @@ opts_knit$set(root.dir='../../')  #Don't combine this call with any other chunk 
 ```
 
 <!-- Set the report-wide options, and point to the external code file. -->
-```{r set_options, echo=F}
+```{r set_options, cache=FALSE, echo=F}
 cat("Working directory: ", getwd())
 opts_chunk$set(
   results    = 'show', 
