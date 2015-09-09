@@ -64,3 +64,4 @@ cache/
 
 # The devtools zip is downloaded when the package is updating itself.  If it's not deleted, there's no reason to commit it to the repository.
 devtools.zip
+.Rproj.user

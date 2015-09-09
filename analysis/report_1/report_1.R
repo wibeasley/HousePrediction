@@ -1,4 +1,4 @@
-rm(list=ls(all=TRUE)) #Clear the memory of variables from previous run. This is not called by knitr, because it's above the first chunk.
+# rm(list=ls(all=TRUE)) #Clear the memory of variables from previous run. This is not called by knitr, because it's above the first chunk.
 
 # @knitr load_sources ==============================
 #Load any source files that contain/define functions, but that don't load any other types of variables
@@ -17,7 +17,7 @@ library(ggplot2) #For graphing
 # @knitr declare_globals ==============================
 options(show.signif.stars=F) #Turn off the annotations on p-values
 
-pathInput <- "./data_phi_free/derived/motor_trend_car_test.rds"
+pathInput <- "./data_phi_free/raw/house.csv"
 
 HistogramDiscrete <- function(
   dsObserved,
@@ -91,70 +91,37 @@ HistogramContinuous <- function(
 }
 
 # @knitr load_data ==============================
-ds <- readRDS(pathInput) # 'ds' stands for 'datasets'
+ds <- read.csv(pathInput, stringsAsFactors=T) # 'ds' stands for 'datasets'
 
 # @knitr tweak_data ==============================
-#
-# dropInfantWeightForGestationalAgeCategorySgaOrMissing <- (is.na(ds$InfantWeightForGestationalAgeCategory) | ds$InfantWeightForGestationalAgeCategory=="Sga")
-# cat("Number of patients excluded b/c Missing or `SGA` for InfantWeightForGestationalAgeCategory: ", sum(dropInfantWeightForGestationalAgeCategorySgaOrMissing, na.rm=T))
-# ds <- ds[!dropInfantWeightForGestationalAgeCategorySgaOrMissing, ]
-# ds$InfantWeightForGestationalAgeCategory <- droplevels(ds$InfantWeightForGestationalAgeCategory)
-#
-# cat("Number of infants excluded b/c premature age: ", sum(ds$PrematureInfant, na.rm=T))
-# ds <- ds[!ds$PrematureInfant, ]
-#
-# #Define the palettes
-# colorCenter <- RColorBrewer::brewer.pal(n=3, name="Pastel1")[2:1]
-# names(colorCenter) <- levels(ds$Center)
-# colorCenterLight <- adjustcolor(colorCenter, alpha.f=.5)
-#
-# # Create a dataset containing only OUHSC patients
-# dsOuhsc <- ds[ds$Center=="OUHSC", ]
-#
-# #Remove variables no longer necessary
-# rm(dropInfantWeightForGestationalAgeCategorySgaOrMissing)
-# ds$PrematureInfant <- NULL
+ds$PriceMissing <- is.na(ds$PriceSold)
 
 # @knitr marginals ==============================
-# Inspect continuous variables
-HistogramContinuous(dsObserved=ds, variableName="QuarterMileInSeconds", binWidth=.5, roundedDigits=1)
-HistogramContinuous(dsObserved=ds, variableName="DisplacementInchesCubed", binWidth=50, roundedDigits=1)
+HistogramContinuous(dsObserved=ds, variableName="HouseSqFt", binWidth=400, roundedDigits=0)
+HistogramContinuous(dsObserved=ds, variableName="LandSqFt", binWidth=5000, roundedDigits=0)
+HistogramContinuous(dsObserved=ds, variableName="PriceSold", binWidth=50000, roundedDigits=0)
 
-# Inspect discrete/categorical variables
-HistogramDiscrete(dsObserved=ds, variableName="CarburetorCountF")
-HistogramDiscrete(dsObserved=ds, variableName="ForwardGearCountF")
+# HistogramDiscrete(dsObserved=ds, variableName="ForwardGearCountF")
 
 # @knitr scatterplots ==============================
-g1 <- ggplot(ds, aes(x=GrossHorsepower, y=QuarterMileInSeconds, color=ForwardGearCountF)) +
-  geom_smooth(method="loess", span=2) +
-  geom_point(shape=1) +
+g1 <- ggplot(ds, aes(x=HouseSqFt, y=PriceSold, color=ObservedPrice)) +
+  geom_smooth(method="loess", span=2, na.rm=T) +
+  geom_point(shape=1, na.rm=T) +
   theme_bw()
 g1
 
-g1 %+% aes(color=CarburetorCountF)
-g1 %+% aes(color=CylinderCount)
-g1 %+% aes(color=factor(CylinderCount))
-
-g1 %+% aes(x=MilesPerGallon)
-g1 %+% aes(x=MilesPerGallon, color=CarburetorCountF)
-g1 %+% aes(x=MilesPerGallon, color=factor(CylinderCount))
+g1 %+% aes(x=LandSqFt)
+g1 %+% aes(x=HouseSqFt, y=LandSqFt)
 
 # @knitr models ==============================
 
 cat("============= Simple model that's just an intercept. =============")
-m0 <- lm(QuarterMileInSeconds ~ 1, data=ds)
+m0 <- lm(PriceSold ~ 1 + HouseSqFt + LandSqFt, data=ds)
 summary(m0)
+predict.lm(m0, ds[ds$PriceMissing, ])
 
-cat("============= Model includes one predictor. =============")
-m1 <- lm(QuarterMileInSeconds ~ 1 + MilesPerGallon, data=ds)
+m1 <- lm(PriceSold ~ 1 + HouseSqFt*LandSqFt, data=ds)
 summary(m1)
+predict.lm(m1, ds[ds$PriceMissing, ])
 
-cat("The one predictor is significantly tighter.")
-anova(m0, m1)
-
-cat("============= Model includes two predictors. =============")
-m2 <- lm(QuarterMileInSeconds ~ 1 + MilesPerGallon + ForwardGearCountF, data=ds)
-summary(m2)
-
-cat("The two predictor is significantly tighter.")
-anova(m1, m2)
+# **Note 1**: The current report covers `r nrow(ds)` houses.
