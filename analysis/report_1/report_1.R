@@ -1,23 +1,24 @@
 # rm(list=ls(all=TRUE)) #Clear the memory of variables from previous run. This is not called by knitr, because it's above the first chunk.
 
-# @knitr load_sources ==============================
+# ---- load_sources ----
 #Load any source files that contain/define functions, but that don't load any other types of variables
 #   into memory.  Avoid side effects and don't pollute the global environment.
 # source("./SomethingSomething.R")
+browser()
 
-# @knitr load_packages ==============================
+# ---- load_packages ----
 # library(xtable)
-library(knitr)
+library(knitr) #devtools::install_github("yihui/knitr")
 library(scales) #For formating values in graphs
 library(RColorBrewer)
 # library(reshape2) #For converting wide to long
 library(ggplot2) #For graphing
 # library(mgcv, quietly=TRUE) #For the Generalized Additive Model that smooths the longitudinal graphs.
 
-# @knitr declare_globals ==============================
+# ---- declare_globals ----
 options(show.signif.stars=F) #Turn off the annotations on p-values
 
-pathInput <- "./data_phi_free/raw/house.csv"
+pathInput <- "/home/wibeasley/GitHub/HousePrediction/data_phi_free/raw/house.csv"
 
 HistogramDiscrete <- function(
   dsObserved,
@@ -90,20 +91,20 @@ HistogramContinuous <- function(
   return( g )
 }
 
-# @knitr load_data ==============================
+# ---- load_data ----
 ds <- read.csv(pathInput, stringsAsFactors=T) # 'ds' stands for 'datasets'
 
-# @knitr tweak_data ==============================
+# ---- tweak_data ----
 ds$PriceMissing <- is.na(ds$PriceSold)
 
-# @knitr marginals ==============================
+# ---- marginals ----
 HistogramContinuous(dsObserved=ds, variableName="HouseSqFt", binWidth=400, roundedDigits=0)
 HistogramContinuous(dsObserved=ds, variableName="LandSqFt", binWidth=5000, roundedDigits=0)
 HistogramContinuous(dsObserved=ds, variableName="PriceSold", binWidth=50000, roundedDigits=0)
 
 # HistogramDiscrete(dsObserved=ds, variableName="ForwardGearCountF")
 
-# @knitr scatterplots ==============================
+# ---- scatterplots ----
 g1 <- ggplot(ds, aes(x=HouseSqFt, y=PriceSold, color=NULL, shape=NULL)) +
   geom_smooth(method="loess", span=2, na.rm=T) +
   geom_point(na.rm=T) +
@@ -117,7 +118,7 @@ g1 %+% aes(x=LandSqFt) +
 g1 %+% aes(x=HouseSqFt, y=LandSqFt, color=PriceMissing, shape=PriceMissing) +
   theme(legend.position=c(.7,1), legend.justification=c(1,1))
 
-# @knitr models ==============================
+# ---- models ----
 
 cat("============= Simple model that's just an intercept. =============")
 m0 <- lm(PriceSold ~ 1 + HouseSqFt + LandSqFt, data=ds)
