@@ -1,18 +1,12 @@
-Skeleton Report 1
-=================================================
-This report covers the analyses used in the ZZZ project (Marcus Mark, PI).
+# Predicting House Sales
+
+This report describes the rough expected sale price for a friend's house.
 
 <!--  Set the working directory to the repository's base directory; this assumes the report is nested inside of two directories.-->
 
-```
-## Working directory:  D:/Users/Will/Documents/GitHub/HousePrediction/analysis/report_1
-```
 
 <!-- Set the report-wide options, and point to the external code file. -->
 
-```
-## Working directory:  D:/Users/Will/Documents/GitHub/HousePrediction
-```
 
 <!-- Load the sources.  Suppress the output when loading sources. --> 
 
@@ -33,23 +27,23 @@ This report covers the analyses used in the ZZZ project (Marcus Mark, PI).
 
 
 
-```
-   HouseSqFt LandSqFt PriceSold PriceMissing
-1       3528     8250   1010000        FALSE
-2       3160    16936   1018000        FALSE
-3       3691     8643   1050000        FALSE
-4       3983     8294   1070000        FALSE
-5       4501     7377   1075000        FALSE
-6       4242    25142   1075000        FALSE
-7       4833     7421   1150000        FALSE
-8       4729    33174   1213050        FALSE
-9       3890     8992   1325000        FALSE
-10      5311    18857   1400000        FALSE
-11      4000    32912   1470000        FALSE
-12      4378    23047   1525000        FALSE
-13      3448    54014   1950000        FALSE
-14      4215    10563        NA         TRUE
-```
+ HouseSqFt   LandSqFt   PriceSold  PriceMissing 
+----------  ---------  ----------  -------------
+      3528       8250     1010000  FALSE        
+      3160      16936     1018000  FALSE        
+      3691       8643     1050000  FALSE        
+      3983       8294     1070000  FALSE        
+      4501       7377     1075000  FALSE        
+      4242      25142     1075000  FALSE        
+      4833       7421     1150000  FALSE        
+      4729      33174     1213050  FALSE        
+      3890       8992     1325000  FALSE        
+      5311      18857     1400000  FALSE        
+      4000      32912     1470000  FALSE        
+      4378      23047     1525000  FALSE        
+      3448      54014     1950000  FALSE        
+      4215      10563          NA  TRUE         
+
 ## Notes
 
 # Marginals
@@ -129,29 +123,30 @@ For the sake of documentation and reproducibility, the current report was render
 
 
 ```
-Report rendered by Will at 2015-09-09, 13:07 -0500
+Report rendered by wibeasley at 2015-09-09, 14:05 -0500
 ```
 
 ```
-R version 3.2.2 Patched (2015-08-14 r69078)
-Platform: x86_64-w64-mingw32/x64 (64-bit)
-Running under: Windows >= 8 x64 (build 9200)
+R version 3.2.2 (2015-08-14)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Ubuntu 14.04.3 LTS
 
 locale:
-[1] LC_COLLATE=English_United States.1252  LC_CTYPE=English_United States.1252    LC_MONETARY=English_United States.1252
-[4] LC_NUMERIC=C                           LC_TIME=English_United States.1252    
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C               LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8    LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C             LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] scatterplot3d_0.3-36 ggplot2_1.0.1        RColorBrewer_1.1-2   scales_0.3.0         knitr_1.11          
+[1] scatterplot3d_0.3-36 ggplot2_1.0.1        RColorBrewer_1.1-2   scales_0.3.0         knitr_1.11.3        
 
 loaded via a namespace (and not attached):
- [1] Rcpp_0.12.0      digest_0.6.8     MASS_7.3-43      grid_3.2.2       plyr_1.8.3       gtable_0.1.2    
- [7] formatR_1.2      magrittr_1.5     evaluate_0.7.2   stringi_0.5-5    reshape2_1.4.1   rmarkdown_0.8   
-[13] labeling_0.3     proto_0.3-10     tools_3.2.2      stringr_1.0.0    munsell_0.4.2    yaml_2.1.13     
-[19] colorspace_1.2-6 htmltools_0.2.6 
+ [1] Rcpp_0.12.0        digest_0.6.8       MASS_7.3-44        grid_3.2.2         plyr_1.8.3         gtable_0.1.2      
+ [7] formatR_1.2        magrittr_1.5       evaluate_0.7.2     highr_0.5          stringi_0.5-5      reshape2_1.4.1    
+[13] rmarkdown_0.8      labeling_0.3       proto_0.3-10       tools_3.2.2        stringr_1.0.0.9000 munsell_0.4.2     
+[19] yaml_2.1.13        colorspace_1.2-6   htmltools_0.2.6   
 ```
 
 # **Note 1**: The current report covers 14 houses.
