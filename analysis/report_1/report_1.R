@@ -13,6 +13,7 @@ library(scales) #For formating values in graphs
 library(RColorBrewer)
 # library(reshape2) #For converting wide to long
 library(ggplot2) #For graphing
+library(scatterplot3d)
 # library(mgcv, quietly=TRUE) #For the Generalized Additive Model that smooths the longitudinal graphs.
 
 # ---- declare_globals ----
@@ -20,7 +21,7 @@ options(show.signif.stars=F) #Turn off the annotations on p-values
 
 pathInput <- "./data_phi_free/raw/house.csv"
 # pathInput <- "/home/wibeasley/GitHub/HousePrediction/data_phi_free/raw/house.csv"
-pathInput <- "D:/Users/Will/Documents/GitHub/HousePrediction/data_phi_free/raw/house.csv"
+# pathInput <- "D:/Users/Will/Documents/GitHub/HousePrediction/data_phi_free/raw/house.csv"
 
 HistogramDiscrete <- function(
   dsObserved,
@@ -126,16 +127,18 @@ g1 %+% aes(x=HouseSqFt, y=LandSqFt, color=PriceMissing, shape=PriceMissing) +
 
 # ---- models ----
 
-cat("============= Simple model that's just an intercept. =============")
+cat("============= Simple model with two main effects. =============")
 m0 <- lm(PriceSold ~ 1 + HouseSqFt + LandSqFt, data=ds)
 summary(m0)
 predict.lm(m0, ds[ds$PriceMissing, ])
 
+cat("============= Simple model with two main effects and an interaction. =============")
 m1 <- lm(PriceSold ~ 1 + HouseSqFt*LandSqFt, data=ds)
 summary(m1)
 predict.lm(m1, ds[ds$PriceMissing, ])
 
-library(scatterplot3d)
+# ---- plots ----
+
 s3d <- scatterplot3d(
   ds$HouseSqFt, ds$LandSqFt, ds$PriceSold,
   pch=16, highlight.3d=TRUE, type="h",
@@ -145,3 +148,5 @@ s3d <- scatterplot3d(
 )
 s3d$plane3d(m0)
 # **Note 1**: The current report covers `r nrow(ds)` houses.
+
+plot(ds)

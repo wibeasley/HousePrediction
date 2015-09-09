@@ -75,6 +75,9 @@ print(ds)
 ```{r models, echo=echoChunks, message=TRUE}
 ```
 
+# Graphs
+```{r plots, echo=echoChunks, message=TRUE}
+```
 
 # Session Information
 For the sake of documentation and reproducibility, the current report was rendered on a system using the following software.
