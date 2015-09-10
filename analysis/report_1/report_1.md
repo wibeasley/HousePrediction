@@ -27,22 +27,22 @@ This report describes the rough expected sale price for a friend's house.
 
 
 
- HouseSqFt   LandSqFt   PriceSold   HouseID  PriceMissing 
-----------  ---------  ----------  --------  -------------
-     3,528      8,250   1,010,000         1  FALSE        
-     3,160     16,936   1,018,000         2  FALSE        
-     3,691      8,643   1,050,000         3  FALSE        
-     3,983      8,294   1,070,000         4  FALSE        
-     4,501      7,377   1,075,000         5  FALSE        
-     4,242     25,142   1,075,000         6  FALSE        
-     4,833      7,421   1,150,000         7  FALSE        
-     4,729     33,174   1,213,050         8  FALSE        
-     3,890      8,992   1,325,000         9  FALSE        
-     5,311     18,857   1,400,000        10  FALSE        
-     4,000     32,912   1,470,000        11  FALSE        
-     4,378     23,047   1,525,000        12  FALSE        
-     3,448     54,014   1,950,000        13  FALSE        
-     4,215     10,563          NA        14  TRUE         
+ HouseSqFt   LandSqFt   PriceSold   PriceOrder  PriceMissing 
+----------  ---------  ----------  -----------  -------------
+     3,528      8,250   1,010,000            1  FALSE        
+     3,160     16,936   1,018,000            2  FALSE        
+     3,691      8,643   1,050,000            3  FALSE        
+     3,983      8,294   1,070,000            4  FALSE        
+     4,501      7,377   1,075,000            5  FALSE        
+     4,242     25,142   1,075,000            6  FALSE        
+     4,833      7,421   1,150,000            7  FALSE        
+     4,729     33,174   1,213,050            8  FALSE        
+     3,890      8,992   1,325,000            9  FALSE        
+     5,311     18,857   1,400,000           10  FALSE        
+     4,000     32,912   1,470,000           11  FALSE        
+     4,378     23,047   1,525,000           12  FALSE        
+     3,448     54,014   1,950,000           13  FALSE        
+     4,215     10,563          NA           14  TRUE         
 
 ## Notes
 * **Note 1**: The current report covers 14 houses.
@@ -124,7 +124,7 @@ For the sake of documentation and reproducibility, the current report was render
 
 
 ```
-Report rendered by wibeasley at 2015-09-10, 00:42 -0500
+Report rendered by wibeasley at 2015-09-10, 00:50 -0500
 ```
 
 ```

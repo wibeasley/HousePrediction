@@ -96,9 +96,10 @@ HistogramContinuous <- function(
 
 # @knitr load_data ----
 ds <- read.csv(pathInput, stringsAsFactors=T) # 'ds' stands for 'datasets'
-ds$HouseID <- seq_len(nrow(ds))
 
 # @knitr tweak_data ----
+ds <- ds[order(ds$PriceSold), ]
+ds$PriceOrder <- seq_len(nrow(ds))
 ds$PriceMissing <- is.na(ds$PriceSold)
 
 # @knitr marginals ----
@@ -113,7 +114,7 @@ HistogramContinuous(dsObserved=ds, variableName="PriceSold", binWidth=50000, rou
 # HistogramDiscrete(dsObserved=ds, variableName="ForwardGearCountF")
 
 # @knitr scatterplots ----
-g1 <- ggplot(ds, aes(x=HouseSqFt, y=PriceSold, label=HouseID, color=NULL, shape=NULL)) +
+g1 <- ggplot(ds, aes(x=HouseSqFt, y=PriceSold, label=PriceOrder, color=NULL, shape=NULL)) +
   geom_smooth(method="loess", span=2, na.rm=T) +
   # geom_point(na.rm=T) +
   geom_text(na.rm=T) +
