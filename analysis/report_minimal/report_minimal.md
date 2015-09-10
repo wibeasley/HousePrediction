@@ -3,13 +3,13 @@
 <!--  Set the working directory to the repository's base directory; this assumes the report is nested inside of two directories.-->
 
 ```
-## Working directory:  D:/Users/Will/Documents/GitHub/HousePrediction/analysis/report_minimal
+## Working directory:  /home/wibeasley/GitHub/HousePrediction/analysis/report_minimal
 ```
 
 <!-- Set the report-wide options, and point to the external code file. -->
 
 ```
-## Working directory:  D:/Users/Will/Documents/GitHub/HousePrediction
+## Working directory:  /home/wibeasley/GitHub/HousePrediction
 ```
 
 <!-- Load the sources.  Suppress the output when loading sources. --> 
@@ -81,25 +81,26 @@ For the sake of documentation and reproducibility, the current report was render
 
 
 ```
-Report rendered by Will at 2015-09-09, 12:42 -0500
+Report rendered by wibeasley at 2015-09-09, 23:10 -0500
 ```
 
 ```
-R version 3.2.2 Patched (2015-08-14 r69078)
-Platform: x86_64-w64-mingw32/x64 (64-bit)
-Running under: Windows >= 8 x64 (build 9200)
+R version 3.2.2 (2015-08-14)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Ubuntu 14.04.3 LTS
 
 locale:
-[1] LC_COLLATE=English_United States.1252  LC_CTYPE=English_United States.1252    LC_MONETARY=English_United States.1252
-[4] LC_NUMERIC=C                           LC_TIME=English_United States.1252    
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C               LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8    LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C             LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] knitr_1.11
+[1] knitr_1.11.3
 
 loaded via a namespace (and not attached):
- [1] magrittr_1.5    formatR_1.2     tools_3.2.2     htmltools_0.2.6 yaml_2.1.13     stringi_0.5-5   rmarkdown_0.8  
- [8] stringr_1.0.0   digest_0.6.8    evaluate_0.7.2 
+ [1] magrittr_1.5       formatR_1.2        tools_3.2.2        htmltools_0.2.6    yaml_2.1.13        stringi_0.5-5     
+ [7] rmarkdown_0.8      stringr_1.0.0.9000 digest_0.6.8       evaluate_0.7.2    
 ```
