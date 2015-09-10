@@ -14,11 +14,14 @@ opts_knit$set(root.dir='../../')  #Don't combine this call with any other chunk 
 
 <!-- Set the report-wide options, and point to the external code file. -->
 ```{r set_options, cache=FALSE, echo=F}
-cat("Working directory: ", getwd())
+# cat("Working directory: ", getwd())
 opts_chunk$set(
   results    = 'show', 
   comment    = NA, 
-  tidy       = FALSE
+  tidy       = FALSE,
+  fig.width  = 6.5, 
+  fig.height = 4, 
+  fig.path   = 'figure_raw/'
 )
 # dpi = 400,
 # out.width = "650px", #This affects only the markdown, not the underlying png file.  The height will be scaled appropriately.
@@ -57,6 +60,7 @@ read_chunk("./analysis/report_minimal/report_minimal.R") #This allows knitr to c
 ```{r, echo=echoChunks, message=TRUE}
 print(ds)
 ```
+
 ## Notes
 
 # Print Dataset (through externalization)

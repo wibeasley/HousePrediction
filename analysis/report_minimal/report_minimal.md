@@ -8,9 +8,6 @@
 
 <!-- Set the report-wide options, and point to the external code file. -->
 
-```
-## Working directory:  /home/wibeasley/GitHub/HousePrediction
-```
 
 <!-- Load the sources.  Suppress the output when loading sources. --> 
 
@@ -49,6 +46,7 @@
 13      3448    54014   1950000        FALSE
 14      4215    10563        NA         TRUE
 ```
+
 ## Notes
 
 # Print Dataset (through externalization)
@@ -71,7 +69,7 @@
 14      4215    10563        NA         TRUE
 ```
 
-![](report_minimal_files/figure-html/print_all-1.png) 
+![](figure_raw/print_all-1.png) 
 
 # Print Dataset (from Rmd text)
 **Note 1**: The current report covers 14 houses.
@@ -81,7 +79,7 @@ For the sake of documentation and reproducibility, the current report was render
 
 
 ```
-Report rendered by wibeasley at 2015-09-09, 23:10 -0500
+Report rendered by wibeasley at 2015-09-10, 00:54 -0500
 ```
 
 ```
