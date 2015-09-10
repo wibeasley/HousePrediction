@@ -1,12 +1,12 @@
 rm(list=ls(all=TRUE)) #Clear the memory of variables from previous run. This is not called by knitr, because it's above the first chunk.
 
-# ---- load_sources ----
+# @knitr load_sources ----
 #Load any source files that contain/define functions, but that don't load any other types of variables
 #   into memory.  Avoid side effects and don't pollute the global environment.
 # source("./SomethingSomething.R")
 # browser()
 
-# ---- load_packages ----
+# @knitr load_packages ----
 # library(xtable)
 library(knitr) #devtools::install_github("yihui/knitr")
 library(scales) #For formating values in graphs
@@ -16,7 +16,7 @@ library(ggplot2) #For graphing
 library(scatterplot3d)
 # library(mgcv, quietly=TRUE) #For the Generalized Additive Model that smooths the longitudinal graphs.
 
-# ---- declare_globals ----
+# @knitr declare_globals ----
 options(show.signif.stars=F) #Turn off the annotations on p-values
 
 pathInput <- "./data_phi_free/raw/house.csv"
@@ -94,13 +94,14 @@ HistogramContinuous <- function(
   return( g )
 }
 
-# ---- load_data ----
+# @knitr load_data ----
 ds <- read.csv(pathInput, stringsAsFactors=T) # 'ds' stands for 'datasets'
+ds$HouseID <- seq_len(nrow(ds))
 
-# ---- tweak_data ----
+# @knitr tweak_data ----
 ds$PriceMissing <- is.na(ds$PriceSold)
 
-# ---- marginals ----
+# @knitr marginals ----
 HistogramContinuous(dsObserved=ds, variableName="HouseSqFt", binWidth=400, roundedDigits=0) +
   geom_vline(x=ds$HouseSqFt[ds$PriceMissing], linetype=3)
 
@@ -111,21 +112,28 @@ HistogramContinuous(dsObserved=ds, variableName="PriceSold", binWidth=50000, rou
 
 # HistogramDiscrete(dsObserved=ds, variableName="ForwardGearCountF")
 
-# ---- scatterplots ----
-g1 <- ggplot(ds, aes(x=HouseSqFt, y=PriceSold, color=NULL, shape=NULL)) +
+# @knitr scatterplots ----
+g1 <- ggplot(ds, aes(x=HouseSqFt, y=PriceSold, label=HouseID, color=NULL, shape=NULL)) +
   geom_smooth(method="loess", span=2, na.rm=T) +
-  geom_point(na.rm=T) +
+  # geom_point(na.rm=T) +
+  geom_text(na.rm=T) +
+  scale_x_continuous(labels=scales::comma) +
   scale_color_brewer(palette = "Dark2") +
   theme_bw()
-g1 + geom_vline(x=ds$HouseSqFt[ds$PriceMissing], linetype=3)
+
+g1 + geom_vline(x=ds$HouseSqFt[ds$PriceMissing], linetype=3) +
+  scale_y_continuous(labels=scales::dollar)
 
 g1 %+% aes(x=LandSqFt) +
-  geom_vline(x=ds$LandSqFt[ds$PriceMissing], linetype=3)
+  geom_vline(x=ds$LandSqFt[ds$PriceMissing], linetype=3) +
+  scale_y_continuous(labels=scales::dollar)
 
 g1 %+% aes(x=HouseSqFt, y=LandSqFt, color=PriceMissing, shape=PriceMissing) +
+  scale_y_continuous(labels=scales::comma) +
+  coord_cartesian(ylim=c(0, 1.05*max(ds$LandSqFt))) +
   theme(legend.position=c(.7,1), legend.justification=c(1,1))
 
-# ---- models ----
+# @knitr models ----
 
 cat("============= Simple model with two main effects. =============")
 m0 <- lm(PriceSold ~ 1 + HouseSqFt + LandSqFt, data=ds)
@@ -137,7 +145,7 @@ m1 <- lm(PriceSold ~ 1 + HouseSqFt*LandSqFt, data=ds)
 summary(m1)
 predict.lm(m1, ds[ds$PriceMissing, ])
 
-# ---- plots ----
+# @knitr plots ----
 
 s3d <- scatterplot3d(
   ds$HouseSqFt, ds$LandSqFt, ds$PriceSold,

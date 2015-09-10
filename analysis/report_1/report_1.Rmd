@@ -59,10 +59,14 @@ read_chunk("./analysis/report_1/report_1.R") #This allows knitr to call chunks t
 ```
 
 ```{r, echo=echoChunks, message=TRUE}
-knitr::kable(ds)
+knitr::kable(
+  ds, 
+  format.args = list(big.mark = ",")
+)
 ```
 
 ## Notes
+* **Note 1**: The current report covers `r nrow(ds)` houses.
 
 # Marginals
 ```{r marginals, echo=echoChunks, message=TRUE}
@@ -87,5 +91,3 @@ For the sake of documentation and reproducibility, the current report was render
 cat("Report rendered by", Sys.info()["user"], "at", strftime(Sys.time(), "%Y-%m-%d, %H:%M %z"))
 sessionInfo()
 ```
-
-# **Note 1**: The current report covers `r nrow(ds)` houses.

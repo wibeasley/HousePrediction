@@ -27,24 +27,25 @@ This report describes the rough expected sale price for a friend's house.
 
 
 
- HouseSqFt   LandSqFt   PriceSold  PriceMissing 
-----------  ---------  ----------  -------------
-      3528       8250     1010000  FALSE        
-      3160      16936     1018000  FALSE        
-      3691       8643     1050000  FALSE        
-      3983       8294     1070000  FALSE        
-      4501       7377     1075000  FALSE        
-      4242      25142     1075000  FALSE        
-      4833       7421     1150000  FALSE        
-      4729      33174     1213050  FALSE        
-      3890       8992     1325000  FALSE        
-      5311      18857     1400000  FALSE        
-      4000      32912     1470000  FALSE        
-      4378      23047     1525000  FALSE        
-      3448      54014     1950000  FALSE        
-      4215      10563          NA  TRUE         
+ HouseSqFt   LandSqFt   PriceSold   HouseID  PriceMissing 
+----------  ---------  ----------  --------  -------------
+     3,528      8,250   1,010,000         1  FALSE        
+     3,160     16,936   1,018,000         2  FALSE        
+     3,691      8,643   1,050,000         3  FALSE        
+     3,983      8,294   1,070,000         4  FALSE        
+     4,501      7,377   1,075,000         5  FALSE        
+     4,242     25,142   1,075,000         6  FALSE        
+     4,833      7,421   1,150,000         7  FALSE        
+     4,729     33,174   1,213,050         8  FALSE        
+     3,890      8,992   1,325,000         9  FALSE        
+     5,311     18,857   1,400,000        10  FALSE        
+     4,000     32,912   1,470,000        11  FALSE        
+     4,378     23,047   1,525,000        12  FALSE        
+     3,448     54,014   1,950,000        13  FALSE        
+     4,215     10,563          NA        14  TRUE         
 
 ## Notes
+* **Note 1**: The current report covers 14 houses.
 
 # Marginals
 ![](figure_raw/marginals-1.png) ![](figure_raw/marginals-2.png) ![](figure_raw/marginals-3.png) 
@@ -123,7 +124,7 @@ For the sake of documentation and reproducibility, the current report was render
 
 
 ```
-Report rendered by wibeasley at 2015-09-09, 14:05 -0500
+Report rendered by wibeasley at 2015-09-10, 00:42 -0500
 ```
 
 ```
@@ -148,5 +149,3 @@ loaded via a namespace (and not attached):
 [13] rmarkdown_0.8      labeling_0.3       proto_0.3-10       tools_3.2.2        stringr_1.0.0.9000 munsell_0.4.2     
 [19] yaml_2.1.13        colorspace_1.2-6   htmltools_0.2.6   
 ```
-
-# **Note 1**: The current report covers 14 houses.
